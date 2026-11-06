@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Build files
+client/dist/
+server/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# System and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Database backups
+backups/
+
+# Archive files
+*.zip
