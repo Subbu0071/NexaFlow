@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const { Op } = require("sequelize");
 
-const { User, ActiveSession, PasswordReset } = require("../models");
+const { User, ActiveSession, PasswordReset, Lead } = require("../models");
 const sequelize = require("../config/database");
 const { sendPasswordResetEmail } = require("../services/emailService");
 
@@ -112,13 +112,34 @@ const register = async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Public registration can ONLY create normal users
-    const user = await User.create({
-      name: normalizedName,
-      email: normalizedEmail,
-      mobile: normalizedMobile,
-      password: hashedPassword,
-      role: "user",
+    // Create User and Lead atomically
+    const user = await sequelize.transaction(async (transaction) => {
+      // Public registration can ONLY create normal users
+      const newUser = await User.create(
+        {
+          name: normalizedName,
+          email: normalizedEmail,
+          mobile: normalizedMobile,
+          password: hashedPassword,
+          role: "user",
+        },
+        { transaction },
+      );
+
+      // Automatically add the registered user to Leads
+      await Lead.create(
+        {
+          name: newUser.name,
+          email: newUser.email,
+          mobile: newUser.mobile,
+          status: "new",
+          ownerId: null,
+          submittedById: newUser.id,
+        },
+        { transaction },
+      );
+
+      return newUser;
     });
 
     return res.status(201).json({
@@ -155,7 +176,8 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-const { identifier, password, deviceId } = req.body;
+    const { identifier, password, deviceId } = req.body;
+
     if (
       typeof identifier !== "string" ||
       typeof password !== "string" ||
@@ -170,43 +192,43 @@ const { identifier, password, deviceId } = req.body;
       });
     }
 
-   const normalizedIdentifier = identifier.trim();
+    const normalizedIdentifier = identifier.trim();
 
-   let user;
+    // Find user using email or mobile number
+    let user;
 
-   if (normalizedIdentifier.includes("@")) {
-     // Login using email
-     user = await User.findOne({
-       where: {
-         email: normalizedIdentifier.toLowerCase(),
-       },
-     });
-   } else {
-     // Login using mobile number
-     let normalizedMobile = normalizedIdentifier.replace(/[\s()-]/g, "");
+    if (normalizedIdentifier.includes("@")) {
+      user = await User.findOne({
+        where: {
+          email: normalizedIdentifier.toLowerCase(),
+        },
+      });
+    } else {
+      let normalizedMobile = normalizedIdentifier.replace(/[\s()-]/g, "");
 
-     if (normalizedMobile.startsWith("+91")) {
-       normalizedMobile = normalizedMobile.slice(3);
-     } else if (
-       normalizedMobile.startsWith("91") &&
-       normalizedMobile.length === 12
-     ) {
-       normalizedMobile = normalizedMobile.slice(2);
-     }
+      if (normalizedMobile.startsWith("+91")) {
+        normalizedMobile = normalizedMobile.slice(3);
+      } else if (
+        normalizedMobile.startsWith("91") &&
+        normalizedMobile.length === 12
+      ) {
+        normalizedMobile = normalizedMobile.slice(2);
+      }
 
-     if (!/^[6-9]\d{9}$/.test(normalizedMobile)) {
-       return res.status(400).json({
-         success: false,
-         message: "Enter a valid email address or 10-digit mobile number.",
-       });
-     }
+      if (!/^[6-9]\d{9}$/.test(normalizedMobile)) {
+        return res.status(400).json({
+          success: false,
+          message: "Enter a valid email address or 10-digit mobile number.",
+        });
+      }
 
-     user = await User.findOne({
-       where: {
-         mobile: normalizedMobile,
-       },
-     });
-   }
+      user = await User.findOne({
+        where: {
+          mobile: normalizedMobile,
+        },
+      });
+    }
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -214,7 +236,10 @@ const { identifier, password, deviceId } = req.body;
       });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!isPasswordValid) {
       return res.status(401).json({
@@ -231,6 +256,7 @@ const { identifier, password, deviceId } = req.body;
     }
 
     const sessionId = uuidv4();
+
     const refreshToken = crypto.randomBytes(64).toString("hex");
 
     const refreshTokenHash = crypto
@@ -239,8 +265,14 @@ const { identifier, password, deviceId } = req.body;
       .digest("hex");
 
     const now = new Date();
-    const heartbeatTimeout = new Date(now.getTime() - 90 * 1000);
-    const sessionExpiry = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+
+    const heartbeatTimeout = new Date(
+      now.getTime() - 90 * 1000
+    );
+
+    const sessionExpiry = new Date(
+      now.getTime() + 8 * 60 * 60 * 1000
+    );
 
     // Create session safely using a transaction
     const result = await sequelize.transaction(async (transaction) => {
@@ -254,7 +286,9 @@ const { identifier, password, deviceId } = req.body;
       }
 
       const existingSession = await ActiveSession.findOne({
-        where: { userId: lockedUser.id },
+        where: {
+          userId: lockedUser.id,
+        },
         transaction,
         lock: transaction.LOCK.UPDATE,
       });
@@ -280,7 +314,7 @@ const { identifier, password, deviceId } = req.body;
           lastHeartbeat: now,
           expiresAt: sessionExpiry,
         },
-        { transaction },
+        { transaction }
       );
 
       const accessToken = jwt.sign(
@@ -290,9 +324,9 @@ const { identifier, password, deviceId } = req.body;
         },
         process.env.JWT_ACCESS_SECRET,
         {
-          subject: lockedUser.id,
+          subject: String(lockedUser.id),
           expiresIn: process.env.JWT_ACCESS_EXPIRES_IN || "15m",
-        },
+        }
       );
 
       return { accessToken };
@@ -312,11 +346,22 @@ const { identifier, password, deviceId } = req.body;
       });
     }
 
-    // HttpOnly refresh token cookie
+    // =====================================================
+    // REFRESH TOKEN COOKIE
+    // =====================================================
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
+
+      // LOCALHOST: secure false
+      // RENDER: secure true
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+
+      // LOCALHOST: lax
+      // RENDER: none (cross-site Netlify frontend + Render backend)
+      sameSite:
+        process.env.NODE_ENV === "production" ? "none" : "lax",
+
       maxAge: 8 * 60 * 60 * 1000,
       path: "/",
     });
@@ -342,7 +387,6 @@ const { identifier, password, deviceId } = req.body;
     });
   }
 };
-
 // =====================================================
 // GET CURRENT USER
 // =====================================================
