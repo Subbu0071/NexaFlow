@@ -10,7 +10,7 @@ const {
     updateUserRole,
     deleteUser,
     createUser,
-} = require("../controllers/AdminController");
+} = require("../controllers/adminController");
 const router = express.Router();
 
 router.use(authenticate, requireRole("admin"));
