@@ -1,195 +1,130 @@
 # NexaFlow — Mini ERP & Lead Management System
 
+<p align="center">
+  <strong>Manage smarter. Grow faster.</strong><br />
+  A full-stack business management application for user administration and lead management.
+</p>
 
-
-  **Manage smarter. Grow faster.**
-
-  A secure, full-stack business management application designed to simplify user administration, lead management, and business workflows.
-
-  ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-  ![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js&logoColor=white)
-  ![Express](https://img.shields.io/badge/Express.js-API-000000?style=for-the-badge&logo=express&logoColor=white)
-  ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-  ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-
-
+<p align="center">
+  <a href="https://nexaflow-subbu.netlify.app/"><img src="https://img.shields.io/badge/Live%20Application-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Live application" /></a>
+  <a href="https://nexaflow-api-p6kl.onrender.com/api/health"><img src="https://img.shields.io/badge/Backend%20API-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black" alt="Backend API" /></a>
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+</p>
 
 ---
 
-## 1. Overview
+## 🚀 Live Production Deployment
+
+**NexaFlow is deployed and accessible online.** The frontend and backend are hosted separately:
+
+| Component | Hosting platform | Live URL |
+|---|---|---|
+| Frontend application | Netlify | [https://nexaflow-subbu.netlify.app/](https://nexaflow-subbu.netlify.app/) |
+| Backend REST API | Render | [https://nexaflow-api-p6kl.onrender.com](https://nexaflow-api-p6kl.onrender.com) |
+| API health check | Render | [Open health endpoint](https://nexaflow-api-p6kl.onrender.com/api/health) |
+| PostgreSQL database | Render PostgreSQL | Connected to the deployed backend |
+
+The React frontend is served through Netlify. The Node.js/Express API runs as a Render web service and connects to the hosted PostgreSQL database. The frontend communicates with the backend over HTTPS.
+
+> **Note:** The API health endpoint confirms that the backend service is responding. Availability of individual application features also depends on the database, environment configuration, and service status. Free hosting services may take a short time to wake up after inactivity.
+
+---
+
+## 📌 About the Project
 
 **NexaFlow** is a Mini ERP (Enterprise Resource Planning) and Lead Management System developed as a full-stack technical project for **Conception Technology**.
 
-The application provides a centralized platform where administrators can manage users, monitor business leads, and oversee essential business operations through a responsive dashboard.
+It provides a centralized platform for administrators to manage users, monitor leads, and review business activity. Registered users can securely access their portal and submit enquiries.
 
-It follows a client-server architecture, with a React-based frontend, a Node.js and Express backend, and PostgreSQL for persistent data storage.
+The application follows a client-server architecture:
 
-NexaFlow focuses on three important principles:
+- **Frontend:** React 19, Vite, and Tailwind CSS.
+- **Backend:** Node.js and Express.js REST APIs.
+- **Database:** PostgreSQL, accessed through Sequelize ORM.
+- **Deployment:** Netlify for the frontend and Render for the backend and PostgreSQL database.
 
-- **Security:** Authentication, protected APIs, role-based access, and session management.
-- **Simplicity:** A clean interface designed to make business operations easier.
-- **Scalability:** A modular architecture that can be extended with additional business management features.
+### Main objectives
 
-### What can you do with NexaFlow?
-
-| Feature | Description |
-|---|---|
-| User Authentication | Register, log in, and securely access the application. |
-| Session Management | Restrict users to one active device session. |
-| Password Recovery | Request a password reset through email. |
-| Admin Dashboard | Monitor lead statistics and business activity. |
-| User Management | Create, search, update, activate, deactivate, and delete user accounts. |
-| Lead Management | Create, view, search, filter, update, and delete leads. |
-| Lead Import | Import lead records from Excel files. |
-| Lead Export | Export lead records into Excel format. |
-| Lead Tracking | Track leads through different business statuses. |
-| Responsive Interface | Access the application on desktop, tablet, and mobile devices. |
+- **Security:** Authentication, role-based access, protected APIs, and session management.
+- **Usability:** A responsive interface for administrators and registered users.
+- **Organization:** Centralized user and lead records.
+- **Maintainability:** Modular frontend and backend structure.
 
 ---
 
-## 2. Application Roles
+## ✨ Features
 
-NexaFlow currently supports two account roles.
+| Module | Capabilities |
+|---|---|
+| Authentication | Registration, login, logout, and authenticated user profile |
+| Session management | JWT access tokens, refresh-token cookies, heartbeat monitoring, and one active device session per user |
+| Password recovery | Forgot-password and reset-password workflow using email |
+| Admin dashboard | Lead KPIs, status distribution, growth trends, and date-based views |
+| User management | Create, search, filter, update, activate/deactivate, change roles, and delete accounts |
+| Lead management | Create, view, search, filter, sort, paginate, update, and delete leads |
+| Enquiries | Registered users can submit enquiries and view their own submitted records |
+| Excel tools | Import lead records from Excel and export lead data |
+| Responsive UI | Designed for desktop, tablet, and mobile screens |
 
-### Administrator
+### Account roles
 
-The administrator has access to the management dashboard and administrative operations.
+**Administrator**
+- Access the administration dashboard.
+- Manage user accounts and account roles/status.
+- View and manage lead records.
+- Import and export leads.
+- Review dashboard statistics.
 
-Capabilities include:
-
-- View dashboard statistics.
-- Create and manage user accounts.
-- Search and filter registered users.
-- Change user account status.
-- Manage user roles.
-- Create and manage leads.
-- Import and export lead records.
-- Monitor lead status and activity.
-
-### Registered User
-
-Registered users have access to their own user portal.
-
-Capabilities include:
-
-- Register an account.
-- Log in securely.
+**Registered user**
+- Register and securely sign in.
 - Access the user portal.
 - Submit enquiries.
 - View their own submitted enquiries.
-- Recover their password through the reset process.
+- Recover a forgotten password.
 
-**Access control:** Administrative APIs are protected by authentication and role-based authorization. Regular users cannot access administrator-only operations.
+Public registration creates a regular user account; it does not allow a visitor to assign themselves the administrator role.
 
----
-
-## 3. Key Features
-
-### Authentication & Security
-
-NexaFlow implements a secure authentication workflow using:
-
-- JSON Web Tokens (JWT).
-- Password hashing using bcrypt.
-- HTTP-only refresh-token cookies.
-- Access-token refresh and rotation.
-- Database-backed active sessions.
-- Single-active-device session restriction.
-- Session expiration and heartbeat monitoring.
-- Protected frontend routes.
-- Role-based backend authorization.
-- Password recovery using single-use reset tokens.
-- Security middleware and API rate limiting.
-
-**Single-device session design:** Each user is associated with one active session. A second login is rejected while an existing session is considered active. Stale or expired sessions can be replaced according to the session lifecycle rules.
-
-### Dashboard & Analytics
-
-The administrator dashboard provides a centralized overview of lead activity.
-
-Depending on the selected date range, it displays:
-
-- Total leads.
-- Lead status distribution.
-- Conversion rate.
-- Lead growth trends.
-- Recent lead records.
-- Date-based filtering.
-
-### Lead Management
-
-The lead management module supports:
-
-- Creating new leads.
-- Viewing lead records.
-- Updating lead information.
-- Deleting leads.
-- Searching by lead details.
-- Filtering by status.
-- Sorting records.
-- Paginated results.
-- Excel import and export.
-
-Supported lead statuses:
+### Lead statuses
 
 | Status | Meaning |
 |---|---|
-| New | Newly created lead. |
-| Contacted | Initial communication has taken place. |
-| Qualified | Lead has been identified as a potential opportunity. |
-| Converted | Lead has successfully converted. |
-| Lost | Lead is no longer an active opportunity. |
+| New | Newly created lead |
+| Contacted | Initial communication has taken place |
+| Qualified | Identified as a potential opportunity |
+| Converted | Successfully converted |
+| Lost | No longer an active opportunity |
 
-### User Management
+### Excel import and export
 
-Administrators can:
-
-- Create user accounts.
-- View registered users.
-- Search by name, email, or mobile number.
-- Filter by role and account status.
-- Activate or deactivate accounts.
-- Update user roles.
-- Delete user accounts.
-
-Newly created account credentials are communicated through the configured email service when email delivery succeeds.
-
-### Excel Import & Export
-
-NexaFlow supports Excel-based lead management.
-
-**Import:** Upload an Excel workbook containing the required lead columns:
+The lead import feature accepts an Excel workbook with these columns:
 
 - `name`
 - `email`
 - `mobile`
+- `status` (optional)
 
-An optional `status` column is also supported.
+The import feature validates the supplied records. If the status is omitted, the application uses its default lead status. The current implementation supports up to 500 rows per import.
 
-The import process validates records and rejects invalid rows. The current implementation supports up to 500 rows per import.
-
-**Export:** Download lead records in Excel format for reporting and offline analysis.
-
-> Note: Lead import creates lead records. It does not create login accounts for users.
+**Important:** Excel import is for lead records. It does not create user login accounts. A separate bulk user-invitation workflow is a possible future enhancement.
 
 ---
 
-## 4. Technology Stack
-
-NexaFlow is built using modern JavaScript technologies.
+## 🧰 Technology Stack
 
 ### Frontend
 
 | Technology | Purpose |
 |---|---|
 | React 19 | Component-based user interface |
-| Vite | Frontend development and build tooling |
-| JavaScript | Application programming |
-| Tailwind CSS v4 | Responsive styling |
-| React Router | Client-side navigation |
-| Axios | API communication |
-| Lucide React | Interface icons |
-| Recharts | Dashboard data visualization |
+| Vite | Development server and production build |
+| JavaScript | Application logic |
+| Tailwind CSS v4 | Styling and responsive layouts |
+| React Router | Client-side routing |
+| Axios | HTTP/API communication |
+| Recharts | Dashboard charts |
+| Lucide React | Icons |
 
 ### Backend
 
@@ -199,198 +134,135 @@ NexaFlow is built using modern JavaScript technologies.
 | Express.js | REST API framework |
 | Sequelize | ORM and database operations |
 | PostgreSQL | Relational database |
-| JSON Web Token | Authentication |
+| JSON Web Token | Access-token authentication |
 | bcrypt | Password hashing |
-| Zod | Data validation |
+| Zod | Request/data validation |
 | Nodemailer | Email delivery |
-| ExcelJS | Excel import and export |
+| ExcelJS | Excel import/export |
 | Multer | File upload handling |
 | Helmet | HTTP security headers |
 | express-rate-limit | API rate limiting |
 | UUID | Unique identifiers |
 
-### Development Tools
+### Hosting and development tools
 
-- Git and GitHub — Version control.
-- Postman — API testing.
-- Visual Studio Code — Code editor.
-- pgAdmin / PostgreSQL tools — Database management.
-- npm — Package management.
+- **Netlify:** Production frontend hosting.
+- **Render:** Production backend hosting and PostgreSQL database.
+- **Git and GitHub:** Version control and source repository.
+- **Postman:** API testing.
+- **Visual Studio Code:** Development environment.
+- **pgAdmin / PostgreSQL tools:** Database administration.
 
 ---
 
-## 5. Project Architecture
-
-NexaFlow follows a client-server architecture.
+## 🏗️ Architecture
 
 ```text
-                 NEXAFLOW APPLICATION
-                          |
-             +------------+------------+
-             |                         |
-        FRONTEND                    BACKEND
-       React + Vite              Node + Express
-             |                         |
-       Axios API Calls  <----------> REST APIs
-                                       |
-                                  Middleware
-                                       |
-                            Authentication / JWT
-                                       |
-                                Controllers
-                                       |
-                                   Models
-                                       |
-                                  Sequelize
-                                       |
-                                 PostgreSQL
-                                       |
-                              Persistent Storage
+                       USER / BROWSER
+                              |
+                              v
+                 React + Vite Frontend
+                       (Netlify)
+                              |
+                        HTTPS / Axios
+                              |
+                              v
+                  Express REST API
+                       (Render)
+                              |
+             +----------------+----------------+
+             |                |                |
+             v                v                v
+        Middleware       Controllers         Routes
+      Auth / Role /       Business          API access
+       Validation          logic
+                              |
+                              v
+                       Sequelize ORM
+                              |
+                              v
+                      PostgreSQL DB
+                        (Render)
 ```
 
-The frontend handles the user interface and communicates with the backend through REST APIs.
-
-The backend validates requests, checks authentication and permissions, processes business logic, and interacts with PostgreSQL through Sequelize.
+The frontend is responsible for the user interface and client-side navigation. The backend validates requests, authenticates users, enforces permissions, executes business logic, and reads/writes application data through Sequelize.
 
 ---
 
-## 6. Folder Structure
+## 🔐 Authentication and Security
 
-The repository is organized into separate frontend and backend applications.
+NexaFlow uses a database-backed session design with JWT authentication.
+
+- Passwords are hashed with bcrypt; plain-text passwords are not stored.
+- Short-lived JWT access tokens are used for authenticated API requests.
+- Refresh tokens are stored in HTTP-only cookies and hashed before being stored in the database.
+- Refresh-token rotation is used when refreshing a session.
+- Active sessions are stored in PostgreSQL.
+- A user is restricted to **one active device session at a time**.
+- Heartbeat activity is used to identify stale sessions.
+- Sessions have an expiry time.
+- Password reset tokens are single-use and time-limited.
+- Password reset revokes existing sessions.
+- Backend routes enforce authentication and administrator authorization.
+- User lead access is scoped to the authenticated user's own submitted records.
+- Environment variables are used for secrets and deployment configuration.
+
+The application uses HTTPS in production. Production cookie and CORS settings must remain aligned with the deployed Netlify frontend and Render API origins.
+
+---
+
+## 📁 Repository Structure
+
+The project is organized into two main applications:
 
 ```text
-mini-erp/
-│
-├── client/                         # React frontend
-│   │
+NexaFlow/
+├── client/                     # React + Vite frontend
 │   ├── public/
-│   │   ├── favicon.svg
-│   │   └── icons.svg
-│   │
 │   ├── src/
-│   │   │
-│   │   ├── assets/                 # Images and static assets
-│   │   │
+│   │   ├── assets/
 │   │   ├── components/
-│   │   │   ├── dashboard/
-│   │   │   │   ├── DashboardHeader.jsx
-│   │   │   │   ├── LeadsTable.jsx
-│   │   │   │   ├── Sidebar.jsx
-│   │   │   │   └── StatCard.jsx
-│   │   │   │
-│   │   │   ├── leads/
-│   │   │   │   ├── ImportExport.jsx
-│   │   │   │   └── LeadForm.jsx
-│   │   │   │
-│   │   │   ├── Brand.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── Navbar.jsx
-│   │   │   └── ProtectedRoute.jsx
-│   │   │
-│   │   ├── context/
-│   │   │   ├── AuthContext.js
-│   │   │   └── AuthProvider.jsx
-│   │   │
+│   │   ├── context/             # Authentication context/provider
 │   │   ├── layouts/
-│   │   │   ├── AdminLayout.jsx
-│   │   │   └── PublicLayout.jsx
-│   │   │
-│   │   ├── pages/
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── ForgotPassword.jsx
-│   │   │   ├── Home.jsx
-│   │   │   ├── Leads.jsx
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   ├── ResetPassword.jsx
-│   │   │   ├── UserPortal.jsx
-│   │   │   └── UsersManagement.jsx
-│   │   │
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   │
-│   │   ├── App.css
+│   │   ├── pages/               # Dashboard, leads, users, auth, portal
+│   │   ├── services/            # Axios API configuration
 │   │   ├── App.jsx
-│   │   ├── index.css
-│   │   ├── main.jsx
-│   │   └── testApi.js
-│   │
-│   ├── .gitignore
-│   ├── index.html
+│   │   └── main.jsx
 │   ├── package.json
 │   └── vite.config.js
 │
-├── server/                         # Express backend
-│   │
+├── server/                     # Node.js + Express backend
 │   ├── src/
-│   │   │
-│   │   ├── config/
-│   │   │   └── database.js
-│   │   │
+│   │   ├── config/              # Database configuration
 │   │   ├── controllers/
-│   │   │   ├── adminController.js
-│   │   │   ├── authController.js
-│   │   │   └── leadController.js
-│   │   │
 │   │   ├── middleware/
-│   │   │   ├── authMiddleware.js
-│   │   │   ├── requireRole.js
-│   │   │   └── uploadMiddleware.js
-│   │   │
 │   │   ├── models/
-│   │   │   ├── ActiveSession.js
-│   │   │   ├── AdminAuditLog.js
-│   │   │   ├── Lead.js
-│   │   │   ├── PasswordReset.js
-│   │   │   ├── User.js
-│   │   │   └── index.js
-│   │   │
 │   │   ├── routes/
-│   │   │   ├── adminRoutes.js
-│   │   │   ├── authRoutes.js
-│   │   │   └── leadRoutes.js
-│   │   │
-│   │   ├── scripts/
-│   │   │   └── createAdmin.js
-│   │   │
-│   │   ├── services/
-│   │   │   └── emailService.js
-│   │   │
+│   │   ├── scripts/             # Admin setup script
+│   │   ├── services/            # Email service
 │   │   └── server.js
-│   │
-│   ├── .gitignore
-│   ├── package.json
-│   └── test-email.js
-│
-├── backups/                        # Local database backups
+│   └── package.json
 │
 ├── .gitignore
-├── README.md
-└── package.json                    # If present in your local root
+└── README.md
 ```
 
 ---
 
-## 7. Getting Started — Run NexaFlow on Your Computer
+## 💻 Run NexaFlow Locally
 
-This guide is intended for developers as well as beginners who want to run the application locally.
+You can run the application locally for development. The production deployment remains available at the live links above.
 
-You do not need to understand the entire codebase to start the application. Follow the steps in order.
+### Prerequisites
 
-### Step 1 — Install the required software
+Install:
 
-Install the following tools:
+- [Node.js](https://nodejs.org/)
+- [PostgreSQL](https://www.postgresql.org/download/)
+- [Git](https://git-scm.com/downloads)
+- [Visual Studio Code](https://code.visualstudio.com/) (recommended)
 
-| Software | Purpose | Download |
-|---|---|---|
-| Node.js (LTS) | Runs the frontend tools and backend | [Download Node.js](https://nodejs.org/) |
-| PostgreSQL | Stores application data | [Download PostgreSQL](https://www.postgresql.org/download/) |
-| Visual Studio Code | Opens the project files | [Download VS Code](https://code.visualstudio.com/) |
-| Git | Downloads the project | [Download Git](https://git-scm.com/downloads) |
-
-After installing Node.js and Git, open PowerShell or the VS Code terminal.
-
-Check that they are installed:
+Verify the installations:
 
 ```bash
 node -v
@@ -398,269 +270,177 @@ npm -v
 git --version
 ```
 
-### Step 2 — Download the project
-
-You can download the project directly from GitHub.
-
-**Option A: Download ZIP**
-
-1. Open the NexaFlow GitHub repository.
-2. Click the green **Code** button.
-3. Select **Download ZIP**.
-4. Extract the downloaded folder.
-5. Open the extracted `mini-erp` folder in VS Code.
-
-**Option B: Clone using Git**
-
-Open a terminal and run:
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Subbu0071/mini-erp.git
+git clone https://github.com/Subbu0071/NexaFlow.git
+cd NexaFlow
 ```
 
-Move into the project directory:
+### 2. Create a local PostgreSQL database
 
-```bash
-cd mini-erp
-```
-
-### Step 3 — Set up the PostgreSQL database
-
-1. Open PostgreSQL or pgAdmin.
-2. Create a database named:
+Create a database and a dedicated user. For example:
 
 ```sql
 CREATE DATABASE mini_erp;
-```
-
-3. Create a dedicated database user:
-
-```sql
 CREATE USER mini_erp_user WITH PASSWORD 'your_secure_password';
-```
-
-4. Grant database privileges:
-
-```sql
 GRANT ALL PRIVILEGES ON DATABASE mini_erp TO mini_erp_user;
 ```
 
-For PostgreSQL versions that use a restricted `public` schema, also connect to `mini_erp` and run:
+If required by your PostgreSQL version, connect to the `mini_erp` database and grant schema privileges:
 
 ```sql
 GRANT USAGE, CREATE ON SCHEMA public TO mini_erp_user;
 ```
 
-Use the credentials you created in the backend environment configuration.
+Use your own local database credentials in the backend environment file.
 
-### Step 4 — Configure backend environment variables
+### 3. Configure backend environment variables
 
-Open the `server` folder.
-
-Create a new file named:
-
-```text
-.env
-```
-
-Add the following configuration, replacing the example values with your own:
+Inside the `server` directory, create a file named `.env`:
 
 ```env
-PORT=5000
 NODE_ENV=development
+PORT=5000
 
-# PostgreSQL Configuration
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=mini_erp
 DB_USER=mini_erp_user
-DB_PASSWORD=your_secure_password
+DB_PASSWORD=your_local_database_password
+DB_SSL=false
 
-# Authentication Secrets
 JWT_ACCESS_SECRET=replace_with_a_long_random_secret
-JWT_REFRESH_SECRET=replace_with_another_long_random_secret
+JWT_REFRESH_SECRET=replace_with_a_different_long_random_secret
+JWT_ACCESS_EXPIRES_IN=15m
 
-# Frontend URL
 CLIENT_URL=http://localhost:5173
 
-# Email Configuration
 EMAIL_USER=your_email@gmail.com
-EMAIL_APP_PASSWORD=your_gmail_app_password
+EMAIL_APP_PASSWORD=your_email_app_password
 ```
 
-**Important:**
+Replace all example values with your own. Do not commit your `.env` file or share its contents.
 
-- Keep your `.env` file private.
-- Never upload it to GitHub.
-- Replace all example credentials with your own.
-- Use strong, unique JWT secrets.
-- If email functionality is required, configure a valid email account and app password.
-- The exact database environment variable names must match the backend configuration in `server/src/config/database.js`. If your local configuration uses different names, follow that file.
-
-### Step 5 — Install backend dependencies
-
-Open a terminal in the project root and run:
+### 4. Install backend dependencies
 
 ```bash
 cd server
 npm install
 ```
 
-This installs the backend packages listed in `server/package.json`.
+### 5. Start the backend
 
-### Step 6 — Start the backend server
-
-From the `server` folder, run:
+From the `server` directory:
 
 ```bash
 npm run dev
 ```
 
-If your backend package does not define a `dev` script, use:
+If the development script is not available in your local checkout, use the start command defined in `server/package.json`.
 
-```bash
-node src/server.js
-```
-
-The backend should start on:
+The local API is expected at:
 
 ```text
 http://localhost:5000
 ```
 
-Check the health endpoint:
+Health endpoint:
 
 ```text
 http://localhost:5000/api/health
 ```
 
-The server should return a successful health response if the route is configured and the database connection is working.
+Keep the backend terminal running.
 
-Keep this terminal open while using the application.
+### 6. Create an administrator account
 
-### Step 7 — Create the first administrator account
-
-NexaFlow does not allow public registration to choose the administrator role.
-
-The initial administrator should be created using the backend setup script.
-
-From the `server` folder, inspect the script:
-
-```text
-src/scripts/createAdmin.js
-```
-
-Follow its required environment variables and execution instructions. If the script is configured as an npm command, run that command from `server`; otherwise use:
+The project includes an administrator setup script:
 
 ```bash
 node src/scripts/createAdmin.js
 ```
 
-Use the credentials created by the script to sign in as an administrator.
+Run this command from the `server` directory after configuring the local database. Follow the prompts to create the first administrator account. Use the resulting credentials to access the admin dashboard.
 
-### Step 8 — Install frontend dependencies
+### 7. Configure and start the frontend
 
-Open a **second terminal** in VS Code.
-
-Navigate to the frontend folder:
+Open a second terminal:
 
 ```bash
 cd client
 npm install
-```
-
-### Step 9 — Configure the frontend API URL
-
-The local frontend API service must point to the backend:
-
-```text
-http://localhost:5000/api
-```
-
-The current Axios configuration is located at:
-
-```text
-client/src/services/api.js
-```
-
-If the project is configured to use a fixed local API URL, no additional environment setup is necessary for local development.
-
-For a deployment-ready environment, configure the API URL through a Vite environment variable and update the API service accordingly.
-
-### Step 10 — Start the frontend
-
-From the `client` folder, run:
-
-```bash
 npm run dev
 ```
 
-Vite will display a local development URL, usually:
+The local frontend is usually available at:
 
 ```text
 http://localhost:5173/
 ```
 
-Open that address in your browser.
+Make sure `client/src/services/api.js` points to the local API base URL during local development:
 
-**Congratulations! NexaFlow is now running locally.**
+```text
+http://localhost:5000/api
+```
 
----
-
-## 8. How to Use NexaFlow
-
-Once the application opens, follow these steps.
-
-### Administrator workflow
-
-1. Open the application in your browser.
-2. Sign in using the administrator credentials.
-3. Access the Admin Dashboard.
-4. Review the dashboard statistics.
-5. Open User Management to create and manage accounts.
-6. Open Lead Management to add and manage leads.
-7. Use the search, filters, and pagination to find records.
-8. Import leads using a properly formatted Excel file.
-9. Export lead data when required.
-
-### Registered user workflow
-
-1. Open the application.
-2. Select Register.
-3. Enter your name, email, mobile number, and password.
-4. Submit the registration form.
-5. Log in using your registered credentials.
-6. Access the User Portal.
-7. Submit an enquiry and view your own submitted enquiries.
-
-### Excel import format
-
-Prepare an Excel workbook with the following column headers:
-
-| name | email | mobile | status |
-|---|---|---|---|
-| Rahul Sharma | rahul@example.com | 9876543210 | new |
-| Priya Das | priya@example.com | 9876543211 | contacted |
-| Amit Roy | amit@example.com | 9876543212 | qualified |
-
-The `status` column is optional. If omitted, the application uses the default `new` status.
-
-Save the workbook as `.xlsx` before importing it.
+If you switch between local and production environments, ensure the frontend API base URL matches the environment you intend to use, then rebuild the frontend when preparing a new deployment.
 
 ---
 
-## 9. API Overview
+## 🌐 Production Deployment
 
-The backend exposes REST API endpoints for authentication, user administration, and lead management.
+The current production deployment uses the following services:
+
+### Frontend — Netlify
+
+- Hosting platform: **Netlify**
+- Live application: [https://nexaflow-subbu.netlify.app/](https://nexaflow-subbu.netlify.app/)
+- The deployed site serves the production React frontend.
+
+### Backend — Render
+
+- Hosting platform: **Render Web Service**
+- Service: `nexaflow-api`
+- API base URL: [https://nexaflow-api-p6kl.onrender.com](https://nexaflow-api-p6kl.onrender.com)
+- Health endpoint: [https://nexaflow-api-p6kl.onrender.com/api/health](https://nexaflow-api-p6kl.onrender.com/api/health)
+
+### Database — Render PostgreSQL
+
+- The production backend connects to a PostgreSQL database hosted on Render.
+- Database credentials are configured as private environment variables in Render.
+- The deployed backend uses the Render database connection configuration; local development uses the developer's local PostgreSQL configuration.
+
+### Production configuration checklist
+
+When configuring or redeploying the application:
+
+- Set `NODE_ENV=production` on the backend service.
+- Configure the Render PostgreSQL connection using private environment variables.
+- Set strong, unique JWT secrets.
+- Configure the correct frontend origin in `CLIENT_URL`.
+- Configure email credentials privately if password recovery email is enabled.
+- Ensure the frontend API base URL points to the deployed Render API.
+- Keep production cookies secure and compatible with cross-origin frontend/API requests.
+- Never expose database URLs, passwords, JWT secrets, or email app passwords in source code or public repositories.
+
+**Deployment note:** The frontend and backend are separate deployments. Updating source code in GitHub does not necessarily update a manually deployed Netlify site unless a deployment workflow is configured. After frontend changes, create a fresh production build and publish the updated build to Netlify.
+
+---
+
+## 🔌 API Overview
+
+The backend provides REST endpoints for authentication, administration, and lead management.
 
 ### Authentication
 
-| Method | Endpoint | Purpose |
+| Method | Endpoint | Description |
 |---|---|---|
 | POST | `/api/auth/register` | Register a user |
-| POST | `/api/auth/login` | Authenticate a user |
-| GET | `/api/auth/me` | Retrieve the authenticated user |
-| POST | `/api/auth/heartbeat` | Update session activity |
+| POST | `/api/auth/login` | Log in using email or mobile number |
+| GET | `/api/auth/me` | Get the authenticated user's profile |
+| POST | `/api/auth/heartbeat` | Update active-session activity |
 | POST | `/api/auth/refresh` | Refresh the access token |
 | POST | `/api/auth/logout` | End the active session |
 | POST | `/api/auth/forgot-password` | Request password recovery |
@@ -668,219 +448,128 @@ The backend exposes REST API endpoints for authentication, user administration, 
 
 ### Administrator
 
-| Method | Endpoint | Purpose |
+| Method | Endpoint | Description |
 |---|---|---|
-| GET | `/api/admin/users` | Retrieve and filter users |
-| GET | `/api/admin/users/:id` | Retrieve a user |
+| GET | `/api/admin/users` | List, search, filter, and paginate users |
+| GET | `/api/admin/users/:id` | Get a user |
 | POST | `/api/admin/users` | Create a user |
 | PATCH | `/api/admin/users/:id` | Update user details |
-| PATCH | `/api/admin/users/:id/status` | Update account status |
-| PATCH | `/api/admin/users/:id/role` | Update user role |
+| PATCH | `/api/admin/users/:id/status` | Activate or deactivate a user |
+| PATCH | `/api/admin/users/:id/role` | Change a user's role |
 | DELETE | `/api/admin/users/:id` | Delete a user |
 
 ### Leads
 
-| Method | Endpoint | Purpose |
+| Method | Endpoint | Description |
 |---|---|---|
-| POST | `/api/leads` | Create a lead as administrator |
+| POST | `/api/leads` | Create a lead |
 | POST | `/api/leads/enquiry` | Submit a user enquiry |
-| GET | `/api/leads` | Retrieve accessible leads |
+| GET | `/api/leads` | List leads accessible to the authenticated user |
 | PATCH | `/api/leads/:id` | Update a lead |
 | DELETE | `/api/leads/:id` | Delete a lead |
 | GET | `/api/leads/export` | Export leads to Excel |
 | POST | `/api/leads/import` | Import leads from Excel |
 | GET | `/api/leads/stats` | Retrieve dashboard statistics |
 
-**Security note:** Protected endpoints require valid authentication. Administrative endpoints additionally require the administrator role. User lead access is scoped to the authenticated user's own submitted records.
+Protected endpoints require authentication. Administrative endpoints additionally require the administrator role. The API's authorization rules determine which lead records a user can access.
 
 ---
 
-## 10. Database Design
+## 🗄️ Database Models
 
-NexaFlow uses PostgreSQL with Sequelize ORM.
+The application uses Sequelize models backed by PostgreSQL.
 
-The primary data models include:
-
-| Model | Responsibility |
+| Model | Purpose |
 |---|---|
-| User | Stores registered user and administrator accounts |
-| ActiveSession | Stores active login session information |
-| PasswordReset | Manages password reset tokens |
-| AdminAuditLog | Supports administrative audit records |
-| Lead | Stores lead and enquiry information |
+| `User` | Stores administrator and registered-user accounts |
+| `ActiveSession` | Stores active login-session information |
+| `PasswordReset` | Stores password-reset token records |
+| `AdminAuditLog` | Stores administrative audit records |
+| `Lead` | Stores lead and enquiry records |
 
-### Lead ownership
+The Lead model distinguishes between:
 
-The Lead model maintains two separate user relationships:
+- `ownerId`: The administrator responsible for a managed lead.
+- `submittedById`: The registered user who submitted an enquiry.
 
-- `ownerId`: Identifies the administrator responsible for a managed lead.
-- `submittedById`: Identifies the registered user who submitted an enquiry.
-
-This separation supports different lead workflows without mixing user enquiries and administrator-created leads.
+This allows administrator-managed leads and user-submitted enquiries to follow separate access and ownership rules.
 
 ---
 
-## 11. Common Issues & Troubleshooting
+## 🛠️ Troubleshooting
 
-### Problem: `npm` is not recognized
+### Database connection error
 
-**Solution:** Install Node.js and restart your terminal. Verify using:
+Check that PostgreSQL is running and that the database name, host, port, username, password, and SSL configuration match your environment.
 
-```bash
-node -v
-npm -v
-```
+### Frontend cannot reach the API
 
-### Problem: Database connection failed
+Check that the backend is running, the API base URL is correct, and the backend CORS configuration allows the frontend origin.
 
-**Possible causes:**
+### Port already in use
 
-- PostgreSQL is not running.
-- Database name is incorrect.
-- Username or password is incorrect.
-- Database port is incorrect.
-- Environment variables do not match the backend configuration.
+If port `5000` or `5173` is occupied, stop the process using it or configure another available port.
 
-Check your `server/.env` file and `server/src/config/database.js`.
+### Login is rejected
 
-### Problem: Port 5000 is already in use
+Check the email/mobile number and password. Also confirm that the account is active and that the frontend is sending the expected login fields: `identifier`, `password`, and `deviceId`.
 
-Another application may already be using the port.
+### Another device is already logged in
 
-Close the existing process or configure a different backend port.
+NexaFlow enforces one active session per user. A valid active session on another device prevents a second login until the existing session ends or is considered stale/expired by the session rules.
 
-### Problem: Frontend cannot connect to backend
+### Password reset email is not received
 
-Check that:
-
-1. The backend is running.
-2. The frontend API URL is correct.
-3. The backend CORS configuration allows the frontend origin.
-4. The browser console does not show a network or CORS error.
-
-### Problem: Password recovery email is not received
-
-Check:
-
-- Email address configuration.
-- Gmail app password.
-- SMTP settings.
-- Spam or junk folder.
-- Backend terminal error messages.
-
-### Problem: User cannot log in from another device
-
-NexaFlow restricts users to one active device session. An existing active session may prevent another login until it is logged out or expires.
+Check the email configuration, app password, backend logs, and the recipient's spam/junk folder.
 
 ---
 
-## 12. Security Considerations
+## 🔮 Future Enhancements
 
-Security is an important part of NexaFlow's architecture.
+Possible future improvements include:
 
-The application incorporates:
-
-- Password hashing instead of storing plain-text passwords.
-- JWT-based authentication.
-- HTTP-only refresh-token cookies.
-- Refresh-token rotation.
-- Database-backed session validation.
-- Single-active-device session enforcement.
-- Protected API routes.
-- Role-based authorization.
-- User-scoped data access.
-- Input validation.
-- API rate limiting.
-- Security-related HTTP headers.
-- Environment-based secret management.
-
-**Deployment reminder:** Local development settings are not sufficient for production. Configure HTTPS, production-grade secrets, secure cookie settings, appropriate CORS origins, database access controls, backups, and production email delivery before deploying.
-
----
-
-## 13. Running the Application — Quick Reference
-
-After the initial installation, you only need two terminals.
-
-**Terminal 1 — Backend**
-
-```bash
-cd mini-erp/server
-npm run dev
-```
-
-**Terminal 2 — Frontend**
-
-```bash
-cd mini-erp/client
-npm run dev
-```
-
-Open:
-
-```text
-http://localhost:5173/
-```
-
-Make sure PostgreSQL is running before starting the backend.
-
----
-
-## 14. Future Enhancements
-
-NexaFlow is designed to support further improvements as the project evolves.
-
-Potential enhancements include:
-
-- Dedicated user invitation and bulk user import.
-- Advanced reporting and analytics.
+- Bulk user onboarding through Excel and one-time invitation links.
 - More detailed audit-log viewing.
-- Additional lead assignment workflows.
-- Advanced notification management.
-- Improved automated testing.
-- Production deployment and monitoring.
-- Expanded business modules.
+- Advanced reports and analytics.
+- Additional lead assignment and follow-up workflows.
+- Notification management.
+- Expanded business-management modules.
+- Automated tests and deployment pipelines.
+- Enhanced production monitoring and backup automation.
 
-These are potential future improvements, not claims of currently implemented functionality.
+These items are potential enhancements and are not represented as completed features.
 
 ---
 
-## 15. Project Information
+## 📌 Project Information
 
 | Detail | Information |
 |---|---|
-| Project Name | NexaFlow |
-| Project Type | Mini ERP & Lead Management System |
-| Architecture | Client–Server |
-| Frontend | React + Vite |
-| Backend | Node.js + Express.js |
+| Project | NexaFlow |
+| Type | Mini ERP & Lead Management System |
+| Developed for | Conception Technology |
+| Frontend | React 19, Vite, Tailwind CSS v4 |
+| Backend | Node.js, Express.js |
 | Database | PostgreSQL |
 | ORM | Sequelize |
-| Authentication | JWT + Refresh Tokens |
-| Development Status | Functional development build |
-| Developed For | Conception Technology |
+| Authentication | JWT, refresh tokens, database-backed sessions |
+| Frontend hosting | Netlify |
+| Backend hosting | Render |
+| Database hosting | Render PostgreSQL |
+| Current status | Deployed and accessible online |
 
-### Developed as a technical project for Conception Technology.
+## 👨‍💻 Author
 
----
+**Subroto Sarkar**
 
-## 16. Author & Repository
-
-**GitHub Repository:**  
-[https://github.com/Subbu0071/mini-erp](https://github.com/Subbu0071/mini-erp)
-
-**Developer:** Subroto Sarkar
-
-If you find this project useful, consider giving the repository a ⭐ on GitHub.
+- GitHub: [Subbu0071](https://github.com/Subbu0071)
+- Repository: [https://github.com/Subbu0071/NexaFlow](https://github.com/Subbu0071/NexaFlow)
+- Live application: [https://nexaflow-subbu.netlify.app/](https://nexaflow-subbu.netlify.app/)
 
 ---
 
-
-
-  **NexaFlow**
-
-  *Manage smarter. Grow faster.*
-
-  Built with modern web technologies and a focus on security, usability, and maintainability.
-
-
+<p align="center">
+  <strong>NexaFlow</strong><br />
+  <em>Manage smarter. Grow faster.</em><br />
+  Built with modern web technologies, with a focus on security, usability, and maintainability.
+</p>
